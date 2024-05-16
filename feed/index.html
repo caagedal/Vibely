@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/dist/css/index.css">
+    <script src="https://kit.fontawesome.com/4639419757.js" crossorigin="anonymous"></script>
+    <title>Vibely | Login</title>
+</head>
+<body class="main-style">
+    <div class="main-container">
+<!------------------- Sidebar ------------------->
+        <div class="sidebar">
+            <div class="hidden-small mini-profile-box small-container">
+                <a href="/profile/index.html">
+                    <h2>Vibely</h2>
+                    <div class="mini-profile">
+                    </div>
+                </a>
+            </div>
+            <nav class="small-container">
+                <div class="top-menu">
+                    <div class="menu">
+                        <a href="/feed/index.html" class="active menu-item">
+                            <i class="fa-solid fa-house"></i> <span class="hidden-small">Home</span></a>
+                        <a href="/profile/index.html" class="menu-item">
+                            <i class="fa-solid fa-user"></i> <span class="hidden-small">Profile</span></a>
+                        <a href="#" class="menu-item">
+                            <i class="fa-solid fa-bell"></i> <span class="hidden-small">Notifications</span></a>
+                        <a href="#" class="menu-item">
+                            <i class="fa-solid fa-comment"></i> <span class="hidden-small">Messages</span></a>
+                    </div>
+                </div>
+                <div class="footer hidden-small">
+                    <p>© 2024 Vibely</p>                
+                </div>
+            </nav>
+        </div>
+<!------------------- Main ------------------->
+        <main class="wrapper">
+            <div class="hidden-large small-logo">
+                <h2>Vibely</h2>
+            </div>
+<!------------------- personal post ------------------->
+            <section class="profile-content  wrapper">
+                <div class="container post-box">                    
+                    <div class="feed-post personal-post">
+                        <img class="posting-img" src="#">
+                        <form class="post-text">
+                            <div>
+                                <input class="post-title" type="text" placeholder="What's up today?"> 
+                            </div>
+                            <div>
+                                <textarea class="post-input-text" name="post-write" placeholder="What's up today?" maxlength="300"></textarea>
+                            </div>
+                            <div class="img-url post-button">
+                                <input class="image-url" type="text" placeholder="Media URL">
+                                <button type="submit">Post</button>
+                            </div>
+                        </form>   
+                    </div>
+                </div>
+            </section>
+<!------------------- profile feed ------------------->
+            <section class="content-feed">
+                <div class="sort-search">
+                    <div class="search-container">
+                        <form>
+                            <input name="searchbar" id="searchbar" class="searc-field" type="text" placeholder="Search" aria-label="Searchbar">
+                            <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></button>
+                        </form>
+                    </div>
+                    <div class="feed-nav" id="profile-feed-nav">
+                        <div class="filter-btn">
+                            <button><i class="fa-solid fa-filter"></i></button>
+                        </div>
+                    </div>
+                </div>
+<!------------------- feed posts ------------------->
+                <div class="feed-posts">
+                </div>
+            </section>
+        </main>
+        <!------------------- Footer ------------------->
+        <footer class="hidden-large">
+            <p>© 2024 Vibely</p>
+        </footer>
+    </div>
+</body>
+</html>

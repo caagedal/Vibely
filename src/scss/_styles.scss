@@ -1,0 +1,22 @@
+:root{
+    
+    /* Colours */
+    --light-pink: #FADADD;
+    --soft-purple: #C9A2D2;
+    --deep-plum: #673147;
+    --midnight-blue: #393E64;
+    --cream-white: #F7F6F2;
+
+    /* transparents */
+    --trans-white: rgba(255, 255, 255, 0.29);
+    --trans-cream: #f7f6f2a4;
+
+    /* Gradients */
+    --gradient-pink-teal: linear-gradient(234deg, #EDBFBF 35.82%, #42F1F1 83.65%);    
+    --gradient-purple-pink: linear-gradient(218deg, #9C85CD 5.63%, #D8A2A2 85.23%);
+
+    /* Fonts */
+
+    --poppins: "Poppins", sans-serif;
+    --lacquer: "Lacquer", system-ui;
+}
