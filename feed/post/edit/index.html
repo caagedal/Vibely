@@ -15,6 +15,7 @@
                 <a href="/profile/index.html">
                     <h2>Vibely</h2>
                     <div class="mini-profile">
+                        <img src="/src/media/placeholder-img.webp">
                     </div>
                 </a>
             </div>
@@ -28,7 +29,7 @@
                         <a href="#" class="menu-item">
                             <i class="fa-solid fa-bell"></i> <span class="hidden-small">Notifications</span></a>
                         <a href="#" class="menu-item">
-                            <i class="fa-solid fa-comment"></i> <span class="hidden-small">Messages</span></a>
+                            <i class="fa-solid fa-right-from-bracket"></i> <span class="hidden-small">Sign out</span></a>
                     </div>
                 </div>
                 <div class="footer hidden-small">
@@ -37,28 +38,26 @@
             </nav>
         </div>
 <!------------------- Post ------------------->        
-        <main class="wrapper">
-            <section class="post-specific">
-                <!-- <div class="profile-content wrapper">
-                    <div class="card  container">
-                        <div class="feed-post">
-                            <div class="post-profile">
-                                <img src="/images/mouse.webp">
-                                <a href="#">Username</a>
-                                <a href="#">date</a>
+        <main class="wrapper">            
+                <div class="profile-content wrapper">
+                    <div class="card  container feed-post">                        
+                        <div class="post-profile">
+                            <img src="/images/mouse.webp">
+                            <a href="#">Username</a>
+                            <a href="#">date</a>
+                        </div>
+                        <form class="post-text edit-form">
+                            <input class="post-title edit-title" type="text" placeholder="What's up today?"> 
+                            <textarea class="post-input-text edit-body" name="post-write" placeholder="What's up today?" maxlength="300"></textarea>
+                            <div class="img-url edit-buttons">
+                                <input class="edit-media" type="text" placeholder="Media URL">
+                                <div class="post-button">
+                                <button type="submit">Cancel</button>
+                                <button type="submit">Update</button>
+                                </div>
                             </div>
-                            <a href="#" class="post-content">
-                                <h3>Title here</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mattis elit a mi tempus cursus. Etiam nunc erat, commodo eu quam at, mattis convallis nisi. Suspendisse suscipit justo vel tortor egestas ultricies.</p>
-                                <img src="/images/flower.webp" alt="image of flowe">
-                            </a>                                
-                        </div>
-                        <div class="social-icons">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            <i class="fa-solid fa-comment"></i>
-                            <i class="fa-solid fa-heart"></i>
-                        </div>
+                            <input type="hidden" class="form-id " name="id">
+                        </form>
                     </div>
-                </div>          -->
-            </section>
+                </div>
         </main>

@@ -131,6 +131,16 @@ body{
   justify-content: center;
 }
 
+.social-icons button{
+  background-color: transparent;
+  border: none;
+  color: var(--midnight-blue);
+}
+
+.social-icons button:active{
+  color: var(--deep-plum);
+}
+
 /* ======================= Sidebar/"Footer" =======================*/
 
 .sidebar{
@@ -314,6 +324,19 @@ footer{
   align-items: center;
 }
 
+.row a{
+
+}
+
+.landing{
+  flex-direction: column;
+}
+
+.landing p{
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
 .content-feed{
   display: flex;
   flex-direction: column;
@@ -332,7 +355,7 @@ footer{
   padding: 0.5rem;
 }
 
-.row input:focus{
+.row input:focus, .row a:focus{
   outline: none;
   border: solid 2px var(--soft-purple);
 }
@@ -342,24 +365,27 @@ footer{
   text-align: center;
 }
 
-.button input{
+.button button, .row a{
   background-color: white;
   border-radius: 40px;
   color: var(--deep-plum);
   font-size: 1.3rem;
   font-weight: 500;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  border: solid 2px rgba(255, 255, 255, 0.2);
+  padding: 0.5rem;
 }
+
+
+
+
 
 .login-btn:focus{
   background-color: var(--soft-purple);
   color: var(--cream-white);
-}
-
-.button input{
-  display: flex;
-  justify-content: center;
-  width: 100%;
 }
 
 .profile-img{
@@ -373,7 +399,6 @@ footer{
   object-fit: cover;
   object-position: top;
   border: 0.5rem solid var(--cream-white);
-
 }
 
 .profile-text{
@@ -383,14 +408,20 @@ footer{
   text-align: center;
   color: var(--deep-plum);
   font-weight: 500;
+  width: 100%;
 }
 
-
+.profile-user h1{
+  font-family: var(--lacquer);
+  font-size: 2.5rem;
+}
 
 .profile-info{
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
+
+
 
 .profile-card{
   padding: 2rem;
@@ -418,8 +449,8 @@ footer{
 }
 
 .post-profile img, .personal-post img{
-  width: 70px;
-  height: 70px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
 }
 
@@ -429,9 +460,14 @@ footer{
   flex-direction: column;
 }
 
+.post-top{
+  display: flex;
+  gap: 1.2rem;
+}
+
 .personal-post{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 1.5rem;
 }
 
@@ -465,7 +501,7 @@ footer{
 .img-url input{
   border: 2px solid var(--light-pink);
   border-radius: 10px;
-  width: 40%;
+  width: 80%;
   padding: 0.5rem;
 }
 
@@ -473,7 +509,7 @@ footer{
   border: 2px solid var(--soft-purple);
 }
 
-.image-url::placeholder, .image-url{
+.img-tag::placeholder, .img-tag{
   font-size: 0.9rem;
 }
 
@@ -481,7 +517,7 @@ footer{
   outline: none;
 }
 
-.post-button{
+.edit-buttons{
   display: flex;
   justify-content: space-between;
 }
@@ -522,12 +558,24 @@ footer{
   font-size: 1.3rem;
 }
 
-.filter-btn button{
+// .filter-btn select{
+//   border: none;
+//   background-color: transparent;
+//   color: var(--cream-white);
+//   font-size: 1.2rem;
+//   cursor: pointer;
+// }
+
+// .filter-btn select:focus{
+//   outline: none;
+// }
+
+
+
+.option{
+  background-color: var(--cream-white);  
+  color: var(--deep-plum);
   border: none;
-  background-color: transparent;
-  color: var(--cream-white);
-  font-size: 1.5rem;
-  cursor: pointer;
 }
 
 button{
@@ -574,12 +622,44 @@ button{
   gap: 2rem;
 }
 
+.filter-btn{
+  display: flex;
+  gap: 2rem;
+}
+
+.filter-input label{
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.img-url{
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 1000px){
+  .sort-search{
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .profile-user h1{
+    font-family: var(--lacquer);
+    font-size: 2rem;
+  }
+}
 @media (max-width: 900px){
 
   footer{
     margin-bottom: 4.5rem;
     display: flex;
     justify-content: center;
+  }
+
+  .profile-info{
+    gap: 2rem;
   }
 
   main{
@@ -670,6 +750,25 @@ button{
    
 }
 
+@media (max-width: 650px){
+  .img-url{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .post-profile img, .personal-post img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
+
+  .img-url input{
+    width: 100%;
+  }
+
+}
+
 @media (max-width: 550px){
   
   .login{
@@ -703,7 +802,6 @@ button{
 }
 
 @media (max-width: 370px){
-  
 
   .wrapper{
     padding: 0;
@@ -713,9 +811,18 @@ button{
     padding: 1rem;
   }
 
+  .profile-info{
+    gap: 1rem;
+  }
+
+  .profile-user h1{
+    font-family: var(--lacquer);
+    font-size: 1.4rem;
+  }
+
 }
 
-.profile-wrap::before{
+.profile-banner{
   position: absolute;
   content: "";
   top: 0;
@@ -723,8 +830,6 @@ button{
   height: 40%;
   width: 100%;
   border-radius: 1.25rem 1.25rem 0 0;
-  background: url(/images/background2.webp);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  object-fit: cover;
+  object-position: bottom; 
 }
