@@ -424,7 +424,7 @@ footer{
 
 
 .profile-card{
-  padding: 2rem;
+  // padding: 2rem;
   gap: 3rem;
   align-items: center;
 }
@@ -448,10 +448,11 @@ footer{
   padding-bottom: 1rem;
 }
 
-.post-profile img, .personal-post img{
+.post-profile img, .personal-post img, .personal-post-img img{
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 
@@ -480,7 +481,7 @@ footer{
 }
 
 .post-text{
-  width: 100%;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -767,6 +768,19 @@ button{
     width: 100%;
   }
 
+  .profile-user h1{
+    font-family: var(--lacquer);
+    font-size: 1.4rem;
+  }
+
+  .following h4, .followers h4{
+    font-size: 0.8rem;
+  }
+
+  .profile-info{
+    gap: 0.8rem;
+  }
+
 }
 
 @media (max-width: 550px){
@@ -811,9 +825,6 @@ button{
     padding: 1rem;
   }
 
-  .profile-info{
-    gap: 1rem;
-  }
 
   .profile-user h1{
     font-family: var(--lacquer);

@@ -1,165 +1,308 @@
-import { avatarElement } from "../templates/postElements/avatarElement.mjs";
-import { bodyElement } from "../templates/postElements/bodyElement.mjs";
-import { postDateElement } from "../templates/postElements/dateElement.mjs";
-import { interactionElements } from "../templates/postElements/interactionElements.mjs";
-import { mediaElement } from "../templates/postElements/mediaElement.mjs";
-import { postProfileLinkElement } from "../templates/postElements/postProfileLink.mjs";
-import { titleElement } from "../templates/postElements/titleElement.mjs";
-import { usernameElement } from "../templates/postElements/usernameElement.mjs";
 
-export const API_URL = "https://api.noroff.dev";
-export const API_BASE = "/api/v1";
-export const API_SOCIAL = "/social";
-export const SOCIAL_URL = `${API_URL}${API_BASE}${API_SOCIAL}`;
+import { fetchProfile } from "../api/profiles/getProfile.mjs";
 
-export function load(key) {
-    try {
-        const value = localStorage.getItem(key);
-        console.log(`Loaded ${key} from localStorage:`, value);
-        return value ? JSON.parse(value) : null;
-    } catch (error) {
-        console.error(`Failed to load from localStorage: ${error}`);
-        return null;
-    }
-}
 
-export function headers() {
-    const token = load("token");
-    if (!token) {
-        console.error('No token found in localStorage');
-        return {};
-    }
-    return {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-    };
-}
+export async function postContent(post, parentElement){
 
-export async function authFetch(url, options = {}) {
-    return fetch(url, {
-        ...options,
-        headers: headers(),
-    });
-}
+    const postContentLink = document.createElement("a");
+    postContentLink.href = `/feed/post/?id=${post.id}`;
+    postContentLink.classList.add("post-content");
 
-export async function profileInfo() {
-    return load("profile");
-}
+    const title = document.createElement("h3")
+    title.textContent = post.title;
 
-const params = "_followers=true&_following=true&_posts=true";
+    const body = document.createElement("p");
+    body.textContent = post.body;
 
-export async function getProfilePosts(username) {
-    try {
-        if (!username) {
-            throw new Error("Username is required.");
-        }
-        const profilePostsURL = `${SOCIAL_URL}/profiles/${username}?${params}`;
-        const response = await authFetch(profilePostsURL);
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Error ${response.status}: ${errorText}`);
-        }
-
-        return await response.json();
-    } catch (error) {
-        console.error(`Unable to retrieve posts: ${error.message}`);
-        throw error;
-    }
-}
-
-/**
- * Renders the posts of a given profile.
- * @param {Object} profile - The profile object containing posts.
- */
-export async function profilePosts(profile) {
-    const feed = document.querySelector(".profile-posts");
-
-    if (!profile || !Array.isArray(profile.posts)) {
-        console.error("Invalid profile or profile posts are not an array", profile);
-        return;
+    const media = document.createElement("img");
+    media.src = post.media;
+    media.alt = post.title;
+    if(!post.media){
+        media.style.display = "none";
     }
 
-    // Clear any existing content in the feed
-    feed.innerHTML = "";
+    postContentLink.append(title, body, media);
 
+    parentElement.append(postContentLink);
+
+    return postContentLink;
+}
+
+export async function profilePosts(profile){
+
+    const containerHTML = document.querySelector(".profile-posts");
+    
     profile.posts.forEach((post) => {
-        // if (!post || !post.author || !post.author.name) {
-        //     console.error("Invalid post, post author, or author name", post);
-        //     return; // Skip this post if any required data is missing
-        // }
 
-        // Create wrapper for each post
+        const newDate = new Date(post.created).toLocaleDateString("nb-NO", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+            hour: "numeric",
+            minute: "numeric"
+        });
+    
+        const newDateUpdated = new Date(post.updated).toLocaleDateString("nb-NO", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+            hour: "numeric",
+            minute: "numeric"
+        });
+
         const wrapper = document.createElement("div");
         wrapper.classList.add("feed", "profile-content", "wrapper", "post-card");
-        feed.append(wrapper);
+        containerHTML.append(wrapper);
 
-        // Create container for the post card
         const container = document.createElement("div");
         container.classList.add("card", "container");
         wrapper.appendChild(container);
+    
+        const contentContainer = document.createElement("div");
+        contentContainer.classList.add("feed-post");
 
-        // Create post content div
-        const postContent = document.createElement("div");
-        postContent.classList.add("feed-post");
+        const profileLink = document.createElement("a");
+        profileLink.classList.add("post-profile");
+        profileLink.href = `/profile/?name=${profile.name}`;
 
-        // Create profile link element
-        postProfileLinkElement(post, postContent);
+        const postAvatar = document.createElement("img");
+        postAvatar.src = profile.avatar || "/src/media/placeholder-img.webp";
+        postAvatar.alt = profile.name + "profile picture";
 
-        // Append profile-related elements
-        avatarElement(post, postProfileLink);
-        usernameElement(post, postProfileLink);
-        postDateElement(post, postProfileLink);
+        const postAuthor = document.createElement("h3");
+        postAuthor.textContent = profile.name;
 
-        // Create post content link
-        const postContentLink = document.createElement("a");
-        postContentLink.href = `/feed/post/?id=${post.id}`;
-        postContentLink.classList.add("post-content");
+        const postDate = document.createElement("p");
+        postDate.textContent = newDate;
+        if (post.updated !== post.created) {
+            postDate.title = "Updated: " + newDateUpdated;
+        }
 
-        // Append content-related elements
-        titleElement(post, postContentLink);
-        bodyElement(post, postContentLink);
-        mediaElement(post, postContentLink);
+        profileLink.append(postAvatar, postAuthor, postDate);
 
-        // Append profile link and content link to post content div
-        postContent.append(postContentLink);
+        contentContainer.append(profileLink);
+        
+        postContent(post, contentContainer);
 
-        // Create navigation for social interactions
-        const postNav = document.createElement("div");
-        postNav.classList.add("social-icons");
+        container.append(contentContainer);
 
-        // Append interaction elements
-        interactionElements(post, postNav);
-
-        // Append post content and navigation to container
-        container.append(postContent, postNav);
     });
+
+   
 }
 
-/**
- * Fetches and renders the profile posts based on the query parameter.
- */
-export async function renderProfilePosts() {
-    const query = document.location.search;
-    const params = new URLSearchParams(query);
 
-    const profileName = params.get("name");
-
-    if (!profileName) {
-        console.error("Name not found in query parameters.");
-        return;
-    }
-
+export async function renderProfilePosts(){    
     try {
-        const profile = await getProfilePosts(profileName);
-        await profilePosts(profile);
-    } catch (error) {
-        console.error("Error rendering profile.", error);
+        const params = new URLSearchParams(window.location.search);
+        const name = params.get("name");
+
+
+        if (!name) {
+            console.error("ID not found");
+            return;
+        }
+
+        const profile = await fetchProfile(name);
+        profilePosts(profile);
+    }catch(error){
+        console.error("Error trying to render posts:", error);
     }
 }
 
-// Initial call to render profile posts on page load
+
+
 renderProfilePosts();
+
+// export async function renderProfile(){
+//     const query = document.location.search;
+//     const params = new URLSearchParams(query);
+
+//     const profileName = params.get("name");
+
+//     try{
+//         const profile = await fetchProfile(profileName);
+
+//         renderProfilePosts(profile);
+//     }catch(error){
+//         console.error("Error rendering profile.", error);
+//     }
+// }
+
+
+
+// renderProfile();
+
+
+
+
+
+
+
+
+
+// import { avatarElement } from "../templates/postElements/avatarElement.mjs";
+// import { bodyElement } from "../templates/postElements/bodyElement.mjs";
+// import { postDateElement } from "../templates/postElements/dateElement.mjs";
+// import { interactionElements } from "../templates/postElements/interactionElements.mjs";
+// import { mediaElement } from "../templates/postElements/mediaElement.mjs";
+// import { postProfileLinkElement } from "../templates/postElements/postProfileLink.mjs";
+// import { titleElement } from "../templates/postElements/titleElement.mjs";
+// import { usernameElement } from "../templates/postElements/usernameElement.mjs";
+
+// export const API_URL = "https://api.noroff.dev";
+// export const API_BASE = "/api/v1";
+// export const API_SOCIAL = "/social";
+// export const SOCIAL_URL = `${API_URL}${API_BASE}${API_SOCIAL}`;
+
+// export function load(key) {
+//     try {
+//         const value = localStorage.getItem(key);
+//         console.log(`Loaded ${key} from localStorage:`, value);
+//         return value ? JSON.parse(value) : null;
+//     } catch (error) {
+//         console.error(`Failed to load from localStorage: ${error}`);
+//         return null;
+//     }
+// }
+
+// export function headers() {
+//     const token = load("token");
+//     if (!token) {
+//         console.error('No token found in localStorage');
+//         return {};
+//     }
+//     return {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${token}`,
+//     };
+// }
+
+// export async function authFetch(url, options = {}) {
+//     return fetch(url, {
+//         ...options,
+//         headers: headers(),
+//     });
+// }
+
+// export async function profileInfo() {
+//     return load("profile");
+// }
+
+// const params = "_followers=true&_following=true&_posts=true";
+
+// export async function getProfilePosts(username) {
+//     try {
+//         if (!username) {
+//             throw new Error("Username is required.");
+//         }
+//         const profilePostsURL = `${SOCIAL_URL}/profiles/${username}?${params}`;
+//         const response = await authFetch(profilePostsURL);
+
+//         if (!response.ok) {
+//             const errorText = await response.text();
+//             throw new Error(`Error ${response.status}: ${errorText}`);
+//         }
+
+//         return await response.json();
+//     } catch (error) {
+//         console.error(`Unable to retrieve posts: ${error.message}`);
+//         throw error;
+//     }
+// }
+
+// /**
+//  * Renders the posts of a given profile.
+//  * @param {Object} profile - The profile object containing posts.
+//  */
+// export async function profilePosts(profile) {
+//     const feed = document.querySelector(".profile-posts");
+
+//     if (!profile || !Array.isArray(profile.posts)) {
+//         console.error("Invalid profile or profile posts are not an array", profile);
+//         return;
+//     }
+
+//     // Clear any existing content in the feed
+//     feed.innerHTML = "";
+
+//     profile.posts.forEach((post) => {
+//         // if (!post || !post.author || !post.author.name) {
+//         //     console.error("Invalid post, post author, or author name", post);
+//         //     return; // Skip this post if any required data is missing
+//         // }
+
+//         // Create wrapper for each post
+//         const wrapper = document.createElement("div");
+//         wrapper.classList.add("feed", "profile-content", "wrapper", "post-card");
+//         feed.append(wrapper);
+
+//         // Create container for the post card
+//         const container = document.createElement("div");
+//         container.classList.add("card", "container");
+//         wrapper.appendChild(container);
+
+//         // Create post content div
+//         const postContent = document.createElement("div");
+//         postContent.classList.add("feed-post");
+
+//         // Create profile link element
+//         postProfileLinkElement(post, postContent);
+
+//         // Append profile-related elements
+//         avatarElement(post, postProfileLinkElement);
+//         usernameElement(post, postProfileLinkElement);
+//         postDateElement(post, postProfileLinkElement);
+
+//         // Create post content link
+//         const postContentLink = document.createElement("a");
+//         postContentLink.href = `/feed/post/?id=${post.id}`;
+//         postContentLink.classList.add("post-content");
+
+//         // Append content-related elements
+//         titleElement(post, postContentLink);
+//         bodyElement(post, postContentLink);
+//         mediaElement(post, postContentLink);
+
+//         // Append profile link and content link to post content div
+//         postContent.append(postContentLink);
+
+//         // Create navigation for social interactions
+//         const postNav = document.createElement("div");
+//         postNav.classList.add("social-icons");
+
+//         // Append interaction elements
+//         interactionElements(post, postNav);
+
+//         // Append post content and navigation to container
+//         container.append(postContent, postNav);
+//     });
+// }
+
+// /**
+//  * Fetches and renders the profile posts based on the query parameter.
+//  */
+// export async function renderProfilePosts() {
+//     const query = document.location.search;
+//     const params = new URLSearchParams(query);
+
+//     const profileName = params.get("name");
+
+//     if (!profileName) {
+//         console.error("Name not found in query parameters.");
+//         return;
+//     }
+
+//     try {
+//         const profile = await getProfilePosts(profileName);
+//         await profilePosts(profile);
+//     } catch (error) {
+//         console.error("Error rendering profile.", error);
+//     }
+// }
+
+// // Initial call to render profile posts on page load
+// renderProfilePosts();
 
 
 

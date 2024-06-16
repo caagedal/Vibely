@@ -2,7 +2,7 @@ import { SOCIAL_URL } from "../constants.mjs";
 import { authFetch } from "../authFetch.mjs";
 
 const action = "posts";
-const method = "post";
+
 const params = "_author=true&_reactions=true&_comments=true";
 
 export async function getPosts(limit = 100, offset = 0) {

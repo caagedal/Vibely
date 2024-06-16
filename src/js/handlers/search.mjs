@@ -1,40 +1,100 @@
 
-// export async function search(){
-//     const searchBar = document.querySelector("search-container");
+// export function searchBar(){
+//     const searchContainer = document.querySelector(".search-container");
 //     const searchForm = document.querySelector("#search-form");
 //     const searchInput = document.querySelector("#searchbar");
-//     const postContainer = document.querySelector(".feed-posts");
-//     const noFound = document.createElement("p");
-//     noFound.textContent = "No match found!";
+//     const feedContainer = document.querySelector(".feed-posts");
+//     const notFound = document.createElement("p");
+//     notFound.textContent = "No match found.";
 
 //     searchForm.addEventListener("submit", (e) => {
 //         e.preventDefault();
 
-//         const searchTerm = searchInput.ariaValueMax.trim().toLowerCase();
+//         const searchTerm = searchInput.value.trim().toLowerCase();
 //         if (searchTerm === "") {
-//             searchInput.placeholder = "search";
+//             searchInput.placeholder = "Search"
 //             return;
 //         }
 
-//         const 
-//     })
+//         const searchPosts = feedContainer.querySelectorAll(".post-card");
+//         let matchFound = false;
+
+//         searchPosts.forEach((searchPost) => {
+//             const postTitle = searchPost.querySelector("h3").textContent.toLowerCase();
+//             const postBody = searchPost.querySelector("p").textContent.toLowerCase();
+
+//             if (postTitle.includes(searchTerm) || postBody.includes(searchTerm)) {
+//                 searchPost.style.display = "block";
+//                 matchFound = true;
+//                 searchForm.reset();
+//             }else {
+//                 searchPost.style.display = "none";
+//             }
+
+//         });
+
+//         if (!matchFound) {
+//             searchContainer.append(notFound);
+//             searchForm.reset();
+//         }else{
+//             if (searchContainer.contains(notFound)) {
+//                 searchContainer.removeChild(notFound);
+//             }
+//         }
+//     });
 // }
 
-export async function searchPosts() {
+// searchBar();
+
+export function searchBar(){
+    const searchContainer = document.querySelector(".search-container");
     const searchForm = document.querySelector("#search-form");
     const searchInput = document.querySelector("#searchbar");
+    const feedContainer = document.querySelector(".feed-posts");
+    const notFound = document.createElement("p");
+    notFound.textContent = "No match found.";
+    notFound.classList.add("no-match-message");
 
     if (searchForm && searchInput) {
         searchForm.addEventListener("submit", (e) => {
             e.preventDefault();
 
-            const inputValue = searchInput.value.toLowerCase();
-            const containers = document.querySelectorAll(".post-card");
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            if (searchTerm === "") {
+                searchInput.placeholder = "Search";
+                return;
+            }
 
-            containers.forEach(function(container) {
-                const text = container.textContent.toLowerCase();
-                container.style.display = text.includes(inputValue) ? "" : "none";
+            const searchPosts = feedContainer.querySelectorAll(".post-card");
+            let matchFound = false;
+
+            searchPosts.forEach((searchPost) => {
+                const postTitle = searchPost.querySelector("h3").textContent.toLowerCase();
+                const postBody = searchPost.querySelector(".body-search").textContent.toLowerCase();
+
+                if (postTitle.includes(searchTerm) || postBody.includes(searchTerm)) {
+                    searchPost.style.display = "block";
+                    matchFound = true;
+                } else {
+                    searchPost.style.display = "none";
+                }
             });
+
+            if (!matchFound) {
+                if (!searchContainer.contains(notFound)) {
+                    searchContainer.appendChild(notFound);
+                }
+            } else {
+                if (searchContainer.contains(notFound)) {
+                    searchContainer.removeChild(notFound);
+                }
+            }
+
+            searchForm.reset();
         });
     }
 }
+
+searchBar();
+
+

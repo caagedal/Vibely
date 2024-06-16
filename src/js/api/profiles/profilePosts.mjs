@@ -1,7 +1,6 @@
 import { authFetch } from "../authFetch.mjs";
 import { SOCIAL_URL } from "../constants.mjs";
 
-// const action = "?_author=true"
 const params = "_followers=true&_following=true&_posts=true";
 
 

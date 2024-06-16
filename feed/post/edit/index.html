@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vibely | post</title>
     <link rel="stylesheet" href="/dist/css/index.css">
+    <script type="module" src="/src/js/handlers/editPost.mjs"></script>
 </head>
 <body class="main-style">
     <div class="main-container">
@@ -51,8 +52,8 @@
                             <textarea class="post-input-text edit-body" name="post-write" placeholder="What's up today?" maxlength="300"></textarea>
                             <div class="img-url edit-buttons">
                                 <input class="edit-media" type="text" placeholder="Media URL">
+                                <input type="hidden" class="post-id" name="id">
                                 <div class="post-button">
-                                <button type="submit">Cancel</button>
                                 <button type="submit">Update</button>
                                 </div>
                             </div>

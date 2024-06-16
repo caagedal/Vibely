@@ -5,30 +5,42 @@ const action = "/posts";
 const method = "put";
 
 export async function editPost(postData) {
-    if (!postData.id) {
-        throw new Error("No post ID found.");
-    }
 
-    const editPostURL = `${SOCIAL_URL}${action}/${postData.id}`;
-
-    try {
+    try{
+        if (!postData.id) {
+            throw new Error("No post ID found.");
+        }
+    
+        const editPostURL = `${SOCIAL_URL}${action}/${postData.id}`;
+    
         const response = await authFetch(editPostURL, {
             method,
-            body: JSON.stringify(postData)
+            body: JSON.stringify(postData),
         });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Error ${response.status}: ${errorText}`);
-        }
-
+    
         return await response.json();
-    } catch (error) {
-        throw new Error(`Failed to edit post: ${error.message}`);
+    }catch(error){
+        console.error(error);
     }
+
 }
 
 
+// try {
+//     const response = await authFetch(editPostURL, {
+//         method,
+//         body: JSON.stringify(postData)
+//     });
+
+//     if (!response.ok) {
+//         const errorText = await response.text();
+//         throw new Error(`Error ${response.status}: ${errorText}`);
+//     }
+
+//     return await response.json();
+// } catch (error) {
+//     throw new Error(`Failed to edit post: ${error.message}`);
+// }
 
 
 

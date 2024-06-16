@@ -1,33 +1,30 @@
-// import { renderPosts } from "./renderPost.mjs";
-// import { renderMediaPosts } from "./renderPost.mjs";
+import { renderMediaPosts } from "./renderPost.mjs";
+import { renderPosts } from "./renderPost.mjs";
+import { getPosts } from "../api/posts/getposts.mjs";
 
-// const filterMediaBtn = document.querySelector("#sortPostsMedia");
-// const filterAllBtn = document.querySelector("#sortPosts");
-// const postFeed = document.querySelector(".feed-posts");
-// const path = location.pathname;
+const feedPosts = document.querySelector(".feed-posts");
 
-// export async function filterPosts() {
-//     filterAllBtn.addEventListener("click", () => {
-//         if (filterMediaBtn.hasAttribute("checked")){
-//             filterMediaBtn.removeAttribute("checked");
-//         }
-//         if (!filterAllBtn.hasAttribute("checked")){
-//             filterAllBtn.setAttribute("checked", "");
-//         }
-//         postFeed.innerHTML = "";
-//         if (path === "/feed/") {
-//             renderPosts();
-//         }
-//     });
 
-//     filterMediaBtn.addEventListener("click", () => {
-//         filterMediaBtn.setAttribute("checked", "");
-//         filterAllBtn.removeAttribute("checked");
-//         postFeed.innerHTML = "";
-//         postFeed.innerHTML = "";
-//         if (path === "/feed/"){
-//             renderMediaPosts();
-//         }
-//     });
-// }
+document.getElementById("filter").addEventListener("change", function(e) {
+    const selectedValue = e.target.value;
+
+    if (selectedValue === "all") {
+        showAll();
+    } else if (selectedValue === "media") {
+        showMediaOnly();
+    }
+});
+
+async function showAll() {
+    const posts = await getPosts();
+    feedPosts.innerHTML = ""; // Clear previous posts
+    renderPosts(posts, feedPosts);
+}
+
+async function showMediaOnly() {
+    const posts = await getPosts();
+    const mediaPosts = posts.filter(post => post.media && post.media !== "");
+    feedPosts.innerHTML = ""; // Clear previous posts
+    renderMediaPosts(mediaPosts, feedPosts);
+}
 

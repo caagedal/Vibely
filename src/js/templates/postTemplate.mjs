@@ -60,6 +60,7 @@ export async function createPostTemplate(postData) {
     title.textContent = postData.title;
 
     const body = document.createElement("p");
+    body.classList.add("body-search");
     body.textContent = postData.body;
 
     const postMedia = document.createElement("img");
@@ -128,3 +129,20 @@ export function postTemplate(postDataList, parent) {
         parent.append(...elements);
     });
 }
+
+// export function renderProfilePosts(name, avatar, profileData, parent) {
+//     const sortPosts = profileData.sort(
+//         (a, b) => new Date(b.created) - new Date(a.created)
+//     );
+
+//     const filterEmptyPosts = sortPosts.filter(
+//         (postData) =>
+//             (postData.body !== null && postData.body !== "") || (postData.media !== null && postData.media !== "")
+//     );
+
+//     parent.innerHTML = "";
+//     parent.append(
+//         ...filterEmptyPosts.map((postData) => createPostTemplate(postData, name, avatar)
+//         )
+//     );
+// }

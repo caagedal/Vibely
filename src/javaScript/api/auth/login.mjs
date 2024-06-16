@@ -34,6 +34,7 @@ export async function login(profile){
         } else {
             storage.save("token", accessToken);
             storage.save("profile", user);
+            
             window.location.href  = "/feed/";
         }
         

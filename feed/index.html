@@ -7,16 +7,20 @@
     <script src="https://kit.fontawesome.com/4639419757.js" crossorigin="anonymous"></script>
     <title>Vibely | Login</title>
     <script type="module" src="/src/js/handlers/renderPost.mjs"></script>
+    <script type="module" src="/src/js/handlers/filter.mjs"></script>
+    <script type="module" src="/src/js/handlers/search.mjs"></script>
+    <script type="module" src="/src/javaScript/handlers/menu.mjs"></script>
+    <script type="module" src="/src/javaScript/handlers/createPost.mjs"></script>
 </head>
 <body class="main-style">
     <div class="main-container">
 <!------------------- Sidebar ------------------->
         <div class="sidebar">
             <div class="hidden-small mini-profile-box small-container">
-                <a href="/profile/index.html">
+                <a href="/profile/">
                     <h2>Vibely</h2>
                     <div class="mini-profile">
-                        <img src="/src/media/placeholder-img.webp">
+                        <!-- <img src="/src/media/placeholder-img.webp"> -->
                     </div>
                 </a>
             </div>
@@ -25,7 +29,7 @@
                     <div class="menu">
                         <a href="/feed/index.html" class="active menu-item">
                             <i class="fa-solid fa-house"></i> <span class="hidden-small">Home</span></a>
-                        <a href="/profile/index.html" class="menu-item">
+                        <a href="/profile/" class="menu-item" id="menuProfile">
                             <i class="fa-solid fa-user"></i> <span class="hidden-small">Profile</span></a>
                         <a href="#" class="menu-item">
                             <i class="fa-solid fa-bell"></i> <span class="hidden-small">Notifications</span></a>
@@ -46,8 +50,11 @@
 <!------------------- personal post ------------------->
             <section class="profile-content  wrapper">
                 <div class="container post-box feed-post personal-post">
-                    <div class="post-top">                        
-                        <img class="posting-img" src="/src/media/placeholder-img.webp">
+                    <div class="post-top">
+                        <!-- <img class="posting-img" src="/src/media/placeholder-img.webp"> -->
+                        <div class="personal-post-img">
+
+                        </div>                        
                         <form class="post-text create-post">
                             <div>
                                 <input class="post-title" id="title" name="title" type="text" placeholder="What's up today?"> 
@@ -74,20 +81,11 @@
                         </form>
                     </div>
                     <div class="feed-nav" id="profile-feed-nav">
-                        <div class="filter-btn">
-                            <div class="filter-input all-posts">
-                                <input type="radio" class="form-check-all" name="sortPosts" id="sortPosts">
-                                <label class="form-check-label" for="sortPosts">View all</label>
-                            </div>
-                            <div class="filter-input media-posts">
-                                <input type="radio" class="form-check-media" name="sortPosts" id="sortPostsMedia">
-                                <label class="form-check-label" for="sortPostsMedida">Contains media</label>
-                            </div>
-                            <!-- <select name="filter" id="filter">
-                                <option class="option" value="all">All posts</option>
-                                <option class="option" value="media">With media</option>
-                                <option class="option" value="noMedia">No media</option>
-                            </select> -->
+                        <div class="filter-btn">                            
+                            <select name="filter" id="filter">
+                                <option class="option" value="all" id="allPosts">All posts</option>
+                                <option class="option" value="media" id="mediaOnly">With media only</option>
+                            </select>
                         </div>
                     </div>
                 </div>
