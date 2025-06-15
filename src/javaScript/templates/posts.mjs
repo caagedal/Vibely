@@ -1,24 +1,39 @@
 import { getPosts } from "../api/posts/read.mjs";
 import { deletePost } from "../api/posts/delete.mjs";
 
-
-export async function renderAllPosts(parentElement){
+/**
+ * Renders all posts into the provided parent element.
+ *
+ * @param {HTMLElement} parentElement - The container where posts will be rendered.
+ * @returns {Promise<void>}
+ */
+export async function renderAllPosts(parentElement) {
     try {
-        
         parentElement.innerHTML = "";
-        const posts = await getPosts();
+        const { posts } = await getPosts();
+
+        if (!posts || posts.length === 0) {
+            parentElement.innerHTML = "<p>Ingen poster funnet.</p>";
+            return;
+        }
 
         posts.forEach(post => {
             createPostsHTML(post, parentElement);
         });
-    } catch(error) {
+    } catch (error) {
         console.error("Error rendering posts", error);
+        parentElement.innerHTML = "<p>Feil ved henting av poster.</p>";
     }
 }
 
-
-export async function renderPostCard(post, parentElement){
-    
+/**
+ * Renders a single post card into the provided parent element.
+ *
+ * @param {object} post - The post data.
+ * @param {HTMLElement} parentElement - The container to render into.
+ * @returns {Promise<HTMLElement>}
+ */
+export async function renderPostCard(post, parentElement) {
     const wrapper = document.createElement("div");
     wrapper.classList.add("feed", "profile-content", "wrapper", "post-card");
     parentElement.append(wrapper);
@@ -29,35 +44,32 @@ export async function renderPostCard(post, parentElement){
 
     const contentContainer = document.createElement("div");
     contentContainer.classList.add("feed-post");
-    
+
     profileInfo(post, contentContainer);
     postContent(post, contentContainer);
-    
-    container.append(contentContainer);
 
+    container.append(contentContainer);
     postNav(post, container);
 
     return wrapper;
 }
 
-// --------------------------------- profileInfo--------------------------------------
-
-export async function profileInfo(post, parentElement){
-
+/**
+ * Renders profile info (avatar, name, date) into the given parent element.
+ *
+ * @param {object} post - The post data.
+ * @param {HTMLElement} parentElement - The container to append profile info to.
+ * @returns {HTMLElement}
+ */
+export function profileInfo(post, parentElement) {
     const newDate = new Date(post.created).toLocaleDateString("nb-NO", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-        hour: "numeric",
-        minute: "numeric"
+        day: "numeric", month: "long", year: "numeric",
+        hour: "numeric", minute: "numeric"
     });
 
     const newDateUpdated = new Date(post.updated).toLocaleDateString("nb-NO", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-        hour: "numeric",
-        minute: "numeric"
+        day: "numeric", month: "long", year: "numeric",
+        hour: "numeric", minute: "numeric"
     });
 
     const profileLink = document.createElement("a");
@@ -65,8 +77,8 @@ export async function profileInfo(post, parentElement){
     profileLink.href = `/profile/?name=${post.author.name}`;
 
     const postAvatar = document.createElement("img");
-    postAvatar.src = post.author.avatar || "/src/media/placeholder-img.webp";
-    postAvatar.alt = post.author.name + "profile picture";
+    postAvatar.src = post.author.avatar?.url || "/src/media/placeholder-img.webp";
+    postAvatar.alt = post.author.avatar?.alt || `${post.author.name} profile picture`;
 
     const postAuthor = document.createElement("h3");
     postAuthor.textContent = post.author.name;
@@ -74,49 +86,54 @@ export async function profileInfo(post, parentElement){
     const postDate = document.createElement("p");
     postDate.textContent = newDate;
     if (post.updated !== post.created) {
-        post.title = "Updated: " + newDateUpdated;
+        postDate.title = "Updated: " + newDateUpdated;
     }
 
     profileLink.append(postAvatar, postAuthor, postDate);
-
     parentElement.append(profileLink);
 
     return profileLink;
-
 }
 
-// --------------------------------- postContent --------------------------------------
-
-export async function postContent(post, parentElement){
-
+/**
+ * Renders post content (title, body, media) into the given parent element.
+ *
+ * @param {object} post - The post data.
+ * @param {HTMLElement} parentElement - The container to append post content to.
+ * @returns {HTMLElement}
+ */
+export function postContent(post, parentElement) {
     const postContentLink = document.createElement("a");
     postContentLink.href = `/feed/post/?id=${post.id}`;
     postContentLink.classList.add("post-content");
 
-    const title = document.createElement("h3")
+    const title = document.createElement("h3");
     title.textContent = post.title;
 
     const body = document.createElement("p");
     body.textContent = post.body;
 
     const media = document.createElement("img");
-    media.src = post.media;
-    media.alt = post.title;
-    if(!post.media){
+    media.src = post.media?.url || "/src/media/placeholder-img.webp";
+    media.alt = post.media?.alt || post.title;
+    if (!post.media?.url) {
         media.style.display = "none";
     }
 
     postContentLink.append(title, body, media);
-
     parentElement.append(postContentLink);
 
     return postContentLink;
 }
 
-// --------------------------------- postNav --------------------------------------
-
-export async function postNav(post, parentElement){
-
+/**
+ * Renders post navigation (edit/delete/like) buttons into the given parent element.
+ *
+ * @param {object} post - The post data.
+ * @param {HTMLElement} parentElement - The container to append buttons to.
+ * @returns {Promise<HTMLElement>}
+ */
+export async function postNav(post, parentElement) {
     const postNavContainer = document.createElement("div");
     postNavContainer.classList.add("social-icons");
 
@@ -125,12 +142,12 @@ export async function postNav(post, parentElement){
 
     const postAuth = post.author.name;
     const user = JSON.parse(localStorage.getItem("profile")).name;
+
     if (postAuth === user) {
         const editBtn = document.createElement("button");
         editBtn.type = "button";
         editBtn.classList.add("edit-button");
         editBtn.innerHTML = `<i class="fa-solid fa-pen-to-square"></i>`;
-
         editBtn.addEventListener("click", () => {
             window.location.href = `/feed/post/edit/?id=${post.id}`;
         });
@@ -139,7 +156,6 @@ export async function postNav(post, parentElement){
         deleteBtn.type = "button";
         deleteBtn.classList.add("delete-button");
         deleteBtn.innerHTML = `<i class="fa-solid fa-trash"></i>`;
-
         deleteBtn.addEventListener("click", async () => {
             try {
                 await deletePost(post.id);
@@ -153,14 +169,17 @@ export async function postNav(post, parentElement){
     }
 
     postNavContainer.append(likeBtn);
-
     parentElement.append(postNavContainer);
 
     return postNavContainer;
 }
 
-
-
-export async function renderPosts(post, parentElement){
+/**
+ * Renders a single post card.
+ *
+ * @param {object} post - The post data.
+ * @param {HTMLElement} parentElement - The container to render into.
+ */
+export async function renderPosts(post, parentElement) {
     renderPostCard(post, parentElement);
 }

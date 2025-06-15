@@ -1,26 +1,35 @@
-import { API_SOCIAL_URL } from "../constants.mjs";
+import { API_URL } from "../constants.mjs";
 
-const action = "/auth/register"; 
-const method = "post"; 
+const action = "/auth/register";
+const method = "post";
 
-export async function register(profile) { 
-const registerURL = API_SOCIAL_URL + action; 
-const body = JSON.stringify(profile)
+/**
+ * Registers a new user with the provided profile information.
+ *
+ * @param {{ email: string, password: string }} profile - The user's registration data.
+ * @returns {Promise<object|undefined>} The registration result if successful.
+ */
+export async function register(profile) {
+    const registerURL = API_URL + action;
+    const body = JSON.stringify(profile);
 
+    const response = await fetch(registerURL, {
+        method,
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body,
+    });
 
-const response = await fetch(registerURL, { 
-    headers: {
-        "Content-Type": "application/json"
-    }, 
-    method, 
-    body
-})
+    const result = await response.json();
 
-const result = await response.json()
-alert("You are now registered")
+    if (!response.ok) {
+        alert(result.errors?.[0]?.message || "Registration failed");
+        return;
+    }
 
-window.location.href = "/profile/login/";
+    alert("You are now registered");
+    window.location.href = "/profile/login/";
 
-return result
-
+    return result;
 }

@@ -1,49 +1,57 @@
 import { updatePost } from "../api/posts/update.mjs";
 import { getPost } from "../api/posts/read.mjs";
 
-export async function updatePostForm(){
+/**
+ * Initializes the update post form, populates it with existing data, and handles submission.
+ *
+ * @returns {Promise<void>}
+ */
+export async function updatePostForm() {
     const form = document.querySelector(".edit-form");
+    if (!form) return;
 
-    
-    if(form){
-        const url = new URL(location.href);
-        const id = url.searchParams.get("id");
-        const post = await getPost(id);
-
-        form.title.value = post.title;
-        form.body.value = post.body;
-        form.media.value = post.media;
-
-        form.addEventListener("submi", async (e) => {
-            e.preventDefault();
-            const form = e.target;
-            const formData = new FormData(form);
-
-            const updatedPost = {
-                title: formData.get("title"),
-                body: formData.get("body"),
-                media: formData.get("media"),
-                id: id,
-            };
-
-            const user = JSON.parse(localStorage.getItem("profile"));
-
-            if (updatePost.author !== user.id){
-
-                const errorMessage = document.createElement("p");
-                errorMessage.classList.add("warning");
-                form.append(errorMessage);
-                return;
-            }
-
-            await updatePost(updatedPost);
-
-            setTimeout(()=>{
-                window.location.href = "/feed/";
-            }, 3000);
-        });
+    const url = new URL(location.href);
+    const postID = url.searchParams.get("id");
+    if (!postID) {
+        alert("Mangler post-ID i URL.");
+        return;
     }
-    
-}
 
-updatePostForm();
+    let post;
+    try {
+        post = await getPost(postID);
+    } catch (error) {
+        alert("Klarte ikke å hente posten.");
+        return;
+    }
+
+    form.querySelector(".edit-title").value = post.title || "";
+    form.querySelector(".edit-body").value = post.body || "";
+    form.querySelector(".edit-media").value = post.media?.url || "";
+    form.querySelector(".post-id").value = postID;
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const postData = {
+            id: postID,
+            title: form.querySelector(".edit-title").value,
+            body: form.querySelector(".edit-body").value,
+        };
+
+        const mediaUrl = form.querySelector(".edit-media").value.trim();
+        if (mediaUrl) {
+            postData.media = { url: mediaUrl };
+        }
+
+        try {
+            await updatePost(postData);
+            setTimeout(() => {
+                window.location.href = `/feed/post/?id=${postID}`;
+            }, 1200);
+        } catch (error) {
+            alert(error.message || "Noe gikk galt ved oppdatering.");
+            console.error("Error updating post:", error);
+        }
+    });
+}

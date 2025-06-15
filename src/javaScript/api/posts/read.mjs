@@ -1,33 +1,44 @@
 import { SOCIAL_URL } from "../constants.mjs";
 import { authFetch } from "../authFetch.mjs";
 
-const action = "posts";
+const QUERY_PARAMS = "?_author=true&_reactions=true&_comments=true";
 
-const params = "_author=true&_reactions=true&_comments=true";
-
-export async function getPosts(limit = 100, offset = 0) {
-
-    try{
-        const getPostsURL = `${SOCIAL_URL}${action}?${params}&limit=${limit}&offset=${offset}`;
-        const response = await authFetch(getPostsURL);
-        if(!response.ok){
-            console.error(error);
-        }
+/**
+ * Fetches a paginated list of posts with author, reactions, and comments included.
+ *
+ * @param {number} [limit=100] - Number of posts to retrieve.
+ * @param {number} [page=1] - Page number to retrieve.
+ * @returns {Promise<object>} The posts data.
+ * @throws Will throw an error if the fetch fails.
+ */
+export async function getPosts(limit = 100, page = 1) {
+    try {
+        const url = `${SOCIAL_URL}/posts${QUERY_PARAMS}&limit=${limit}&page=${page}`;
+        const response = await authFetch(url);
         return await response.json();
-
-    }catch (error){
-        console.error("Error fetching posts", error);
-        throw error;
+    } catch (error) {
+        throw new Error("Error fetching posts: " + error.message);
     }
 }
 
-
-export async function getPost(id){
-    if(!id){
-        throw new Error("postID is required");
+/**
+ * Fetches a single post by ID with author, reactions, and comments included.
+ *
+ * @param {string} id - The ID of the post to fetch.
+ * @returns {Promise<object>} The post data.
+ * @throws Will throw an error if the ID is missing or the fetch fails.
+ */
+export async function getPost(id) {
+    if (!id) {
+        throw new Error("Post ID is required");
     }
 
-    const getPostURL = `${SOCIAL_URL}${action}/${id}?${params}`;
-    const response = await authFetch(getPostURL);
-    return await response.json();
+    try {
+        const url = `${SOCIAL_URL}/posts/${id}${QUERY_PARAMS}`;
+        const response = await authFetch(url);
+        const result = await response.json();
+        return result.data;
+    } catch (error) {
+        throw new Error("Error fetching post: " + error.message);
+    }
 }

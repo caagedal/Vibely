@@ -1,13 +1,16 @@
 import { login } from "../api/auth/login.mjs";
 
-
-export function loginFormListener(){
+/**
+ * Adds a submit listener to the login form and triggers login.
+ *
+ * @returns {void}
+ */
+export function loginFormListener() {
     const form = document.querySelector(".login-form");
 
-    form.addEventListener("submit", (e) =>{
+    form.addEventListener("submit", (e) => {
         e.preventDefault();
-        const form = e.target;
-        const formData = new FormData(form);
+        const formData = new FormData(e.target);
         const profile = Object.fromEntries(formData.entries());
 
         login(profile);

@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vibely | post</title>
     <link rel="stylesheet" href="/dist/css/index.css">
-    <script type="module" src="/src/js/handlers/postByID.mjs"></script>
+    <script type="module" src="/src/javaScript/pages/postId.mjs"></script>
 </head>
 <body class="main-style">
     <div class="main-container">
 <!------------------- Sidebar ------------------->
         <div class="sidebar">
             <div class="hidden-small mini-profile-box small-container">
-                <a href="/profile/index.html">
+                <a href="/profile/">
                     <h2>Vibely</h2>
                     <div class="mini-profile">
-                        <img src="/src/media/placeholder-img.webp">
+                        <!-- <img src="/src/media/placeholder-img.webp"> -->
                     </div>
                 </a>
             </div>
@@ -25,42 +25,22 @@
                     <div class="menu">
                         <a href="/feed/index.html" class="active menu-item">
                             <i class="fa-solid fa-house"></i> <span class="hidden-small">Home</span></a>
-                        <a href="/profile/index.html" class="menu-item">
+                        <a href="/profile/" class="menu-item" id="menuProfile">
                             <i class="fa-solid fa-user"></i> <span class="hidden-small">Profile</span></a>
-                        <a href="#" class="menu-item">
-                            <i class="fa-solid fa-bell"></i> <span class="hidden-small">Notifications</span></a>
-                        <a href="#" class="menu-item">
+                        <!-- <a href="#" class="menu-item">
+                            <i class="fa-solid fa-bell"></i> <span class="hidden-small">Notifications</span></a> -->
+                        <a href="#" class="menu-item sign-out" id="signout-btn">
                             <i class="fa-solid fa-right-from-bracket"></i> <span class="hidden-small">Sign out</span></a>
                     </div>
                 </div>
                 <div class="footer hidden-small">
-                    <p>© 2024 Vibely</p>                
+                    <p>© 2025 Vibely</p>                
                 </div>
             </nav>
         </div>
 <!------------------- Post ------------------->        
         <main class="wrapper">
             <section class="post-specific">
-                <!-- <div class="profile-content wrapper">
-                    <div class="card  container">
-                        <div class="feed-post">
-                            <div class="post-profile">
-                                <img src="/images/mouse.webp">
-                                <a href="#">Username</a>
-                                <a href="#">date</a>
-                            </div>
-                            <a href="#" class="post-content">
-                                <h3>Title here</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mattis elit a mi tempus cursus. Etiam nunc erat, commodo eu quam at, mattis convallis nisi. Suspendisse suscipit justo vel tortor egestas ultricies.</p>
-                                <img src="/images/flower.webp" alt="image of flowe">
-                            </a>                                
-                        </div>
-                        <div class="social-icons">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            <i class="fa-solid fa-comment"></i>
-                            <i class="fa-solid fa-heart"></i>
-                        </div>
-                    </div>
-                </div>          -->
+                
             </section>
         </main>

@@ -5,66 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/4639419757.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/dist/css/index.css">
-    <title>Vibely | Welcome</title>
+    <title>Vibely | Profile</title>
     <link rel="icon" href="/src/media/placeholder-img.webp" type="image">
-    <script type="module" src="/src/javaScript/templates/profilePosts.mjs"></script>
-    <script type="module" src="/src/js/templates/profile.mjs"></script>
-    <!-- <script type="module" src="/src/js/templates/profileCard.mjs"></script> -->
-    <!-- <script type="module" src="/src/js/handlers/renderProfilePosts.mjs"></script> -->
-</head>
+    <script type="module" src="/src/javaScript/pages/profile.mjs"></script>
+
 <body class="main-style">
     <div class="main-container">
 <!------------------- Sidebar ------------------->
-<div class="sidebar">
-    <div class="hidden-small mini-profile-box small-container">
-        <a href="/profile/index.html">
-            <h2>Vibely</h2>
-            <div class="mini-profile">
-                <img src="/src/media/placeholder-img.webp">
+        <div class="sidebar">
+            <div class="hidden-small mini-profile-box small-container">
+                <a href="/profile/">
+                    <h2>Vibely</h2>
+                    <div class="mini-profile">                        
+                    </div>
+                </a>
             </div>
-        </a>
-    </div>
-    <nav class="small-container">
-        <div class="top-menu">
-            <div class="menu">
-                <a href="/feed/index.html" class="active menu-item">
-                    <i class="fa-solid fa-house"></i> <span class="hidden-small">Home</span></a>
-                <a href="/profile/index.html" class="menu-item">
-                    <i class="fa-solid fa-user"></i> <span class="hidden-small">Profile</span></a>
-                <a href="#" class="menu-item">
-                    <i class="fa-solid fa-bell"></i> <span class="hidden-small">Notifications</span></a>
-                <a href="#" class="menu-item">
-                    <i class="fa-solid fa-right-from-bracket"></i> <span class="hidden-small">Sign out</span></a>
-            </div>
+            <nav class="small-container">
+                <div class="top-menu">
+                    <div class="menu">
+                        <a href="/feed/index.html" class="active menu-item">
+                            <i class="fa-solid fa-house"></i> <span class="hidden-small">Home</span></a>
+                        <a href="/profile/" class="menu-item" id="menuProfile">
+                            <i class="fa-solid fa-user"></i> <span class="hidden-small">Profile</span></a>                        
+                        <a href="#" class="menu-item sign-out" id="signout-btn">
+                            <i class="fa-solid fa-right-from-bracket"></i> <span class="hidden-small">Sign out</span></a>
+                    </div>
+                </div>
+                <div class="footer hidden-small">
+                    <p>© 2025 Vibely</p>                
+                </div>
+            </nav>
         </div>
-        <div class="footer hidden-small">
-            <p>© 2024 Vibely</p>                
-        </div>
-    </nav>
-</div>
 <!------------------- Main ------------------->
         <main class="wrapper">
             <div class="hidden-large small-logo">
                 <h2>Vibely</h2>
             </div>
-<!------------------- Follow button ------------------->
-            <div class="follow-btn">
-                <button>+ Follow</button>
-            </div>
 <!------------------- Profile information ------------------->
             <section class="profile-card">
-                <!-- <div class="profile-content profile-wrap wrapper">
-                </div> -->
+                
             </section>
 <!------------------- profile feed ------------------->
             <section class="content-feed">
-                <div class="sort-search">
-                    <!-- <div class="search-container">
-                        <form>
-                            <input name="searchbar" id="searchbar" class="searc-field" type="text" placeholder="Search" aria-label="Searchbar">
-                            <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></button>
-                        </form>
-                    </div> -->
+                <div class="sort-search">                    
                 </div>
 <!------------------- posts feed ------------------->
                 <div class="feed-posts profile-posts">
@@ -73,7 +56,7 @@
         </main>
 <!------------------- Footer ------------------->
         <footer class="hidden-large">
-            <p>© 2024 Vibely</p>
+            <p>© 2025 Vibely</p>
         </footer>
     </div>
 </body>

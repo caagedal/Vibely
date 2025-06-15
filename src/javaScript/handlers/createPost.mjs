@@ -1,25 +1,39 @@
 import { createPost } from "../api/posts/create.mjs";
 
-export async function createPostForm(){
+/**
+ * Handles form submission for creating a new post.
+ *
+ * @returns {void}
+ */
+export async function createPostForm() {
     const form = document.querySelector(".create-post");
 
-    if (form){
+    if (form) {
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
-            const form = e.target;
             const formData = new FormData(form);
 
+            const title = formData.get("title");
+            const body = formData.get("body");
+            const mediaUrl = formData.get("media");
+            const mediaAlt = formData.get("mediaAlt");
+
             const post = {
-                title: formData.get("title"),
-                body: formData.get("body"),
-                media: formData.get("media")
+                title,
+                body,
             };
 
-            await createPost(post);
+            if (mediaUrl) {
+                post.media = { url: mediaUrl };
+                if (mediaAlt) post.media.alt = mediaAlt;
+            }
 
-            window.location.href = "/feed";
+            try {
+                await createPost(post);
+                window.location.href = "/feed";
+            } catch (error) {
+                alert(error.message || "Noe gikk galt ved publisering!");
+            }
         });
     }
 }
-
-createPostForm();

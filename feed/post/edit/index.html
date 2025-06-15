@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <script src="https://kit.fontawesome.com/4639419757.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vibely | post</title>
+    <title>Vibely | Edit</title>
     <link rel="stylesheet" href="/dist/css/index.css">
-    <script type="module" src="/src/js/handlers/editPost.mjs"></script>
+    <script type="module" src="/src/javaScript/pages/editPost.mjs"></script>
+    
 </head>
 <body class="main-style">
     <div class="main-container">
 <!------------------- Sidebar ------------------->
         <div class="sidebar">
             <div class="hidden-small mini-profile-box small-container">
-                <a href="/profile/index.html">
+                <a href="/profile/">
                     <h2>Vibely</h2>
                     <div class="mini-profile">
-                        <img src="/src/media/placeholder-img.webp">
+                        
                     </div>
                 </a>
             </div>
@@ -25,33 +26,31 @@
                     <div class="menu">
                         <a href="/feed/index.html" class="active menu-item">
                             <i class="fa-solid fa-house"></i> <span class="hidden-small">Home</span></a>
-                        <a href="/profile/index.html" class="menu-item">
+                        <a href="/profile/" class="menu-item" id="menuProfile">
                             <i class="fa-solid fa-user"></i> <span class="hidden-small">Profile</span></a>
-                        <a href="#" class="menu-item">
-                            <i class="fa-solid fa-bell"></i> <span class="hidden-small">Notifications</span></a>
-                        <a href="#" class="menu-item">
+                        
+                        <a href="#" class="menu-item sign-out" id="signout-btn">
                             <i class="fa-solid fa-right-from-bracket"></i> <span class="hidden-small">Sign out</span></a>
                     </div>
                 </div>
                 <div class="footer hidden-small">
-                    <p>© 2024 Vibely</p>                
+                    <p>© 2025 Vibely</p>                
                 </div>
             </nav>
         </div>
 <!------------------- Post ------------------->        
-        <main class="wrapper">            
+        <main class="wrapper"> 
+                <h2 class="edit-post-h2">Edit post</h2>           
                 <div class="profile-content wrapper">
-                    <div class="card  container feed-post">                        
-                        <div class="post-profile">
-                            <img src="/images/mouse.webp">
-                            <a href="#">Username</a>
-                            <a href="#">date</a>
-                        </div>
+                    <div class="card  container feed-post">
                         <form class="post-text edit-form">
-                            <input class="post-title edit-title" type="text" placeholder="What's up today?"> 
+                            <label for="update-title">Edit title:</label>
+                            <input class="post-title edit-title" type="text" placeholder="What's up today?" name="update-title">
+                            <label for="post-write">Edit body:</label> 
                             <textarea class="post-input-text edit-body" name="post-write" placeholder="What's up today?" maxlength="300"></textarea>
+                            <p>Add or remove media:</p>
                             <div class="img-url edit-buttons">
-                                <input class="edit-media" type="text" placeholder="Media URL">
+                                <input class="edit-media" type="text" placeholder="Media URL" name="update-media">
                                 <input type="hidden" class="post-id" name="id">
                                 <div class="post-button">
                                 <button type="submit">Update</button>

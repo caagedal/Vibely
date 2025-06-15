@@ -11,7 +11,7 @@
     "dev": "npm-run-all --parallel watch start"
   },
   "keywords": [],
-  "author": "",
+  "author": "Cecilie Aagedal",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^5.3.3"
