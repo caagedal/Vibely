@@ -4,14 +4,13 @@
   "description": "My entry to javascript 2 project. A social media platform.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "sass src/scss:dist/css",
     "watch": "sass src/scss:dist/css --watch",
     "start": "live-server",
     "dev": "npm-run-all --parallel watch start"
   },
   "keywords": [],
-  "author": "",
+  "author": "Cecilie Aagedal",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^5.3.3"

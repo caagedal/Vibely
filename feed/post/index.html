@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/4639419757.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibely | post</title>
     <link rel="stylesheet" href="/dist/css/index.css">
-    <title>Vibely | Profile</title>
-    <link rel="icon" href="/src/media/placeholder-img.webp" type="image">
-    <script type="module" src="/src/javaScript/pages/profile.mjs"></script>
-
+    <script type="module" src="/src/javaScript/pages/postId.mjs"></script>
+</head>
 <body class="main-style">
     <div class="main-container">
 <!------------------- Sidebar ------------------->
@@ -16,7 +15,8 @@
             <div class="hidden-small mini-profile-box small-container">
                 <a href="/profile/">
                     <h2>Vibely</h2>
-                    <div class="mini-profile">                        
+                    <div class="mini-profile">
+                        <!-- <img src="/src/media/placeholder-img.webp"> -->
                     </div>
                 </a>
             </div>
@@ -26,7 +26,9 @@
                         <a href="/feed/index.html" class="active menu-item">
                             <i class="fa-solid fa-house"></i> <span class="hidden-small">Home</span></a>
                         <a href="/profile/" class="menu-item" id="menuProfile">
-                            <i class="fa-solid fa-user"></i> <span class="hidden-small">Profile</span></a>                        
+                            <i class="fa-solid fa-user"></i> <span class="hidden-small">Profile</span></a>
+                        <!-- <a href="#" class="menu-item">
+                            <i class="fa-solid fa-bell"></i> <span class="hidden-small">Notifications</span></a> -->
                         <a href="#" class="menu-item sign-out" id="signout-btn">
                             <i class="fa-solid fa-right-from-bracket"></i> <span class="hidden-small">Sign out</span></a>
                     </div>
@@ -36,28 +38,9 @@
                 </div>
             </nav>
         </div>
-<!------------------- Main ------------------->
+<!------------------- Post ------------------->        
         <main class="wrapper">
-            <div class="hidden-large small-logo">
-                <h2>Vibely</h2>
-            </div>
-<!------------------- Profile information ------------------->
-            <section class="profile-card">
+            <section class="post-specific">
                 
             </section>
-<!------------------- profile feed ------------------->
-            <section class="content-feed">
-                <div class="sort-search">                    
-                </div>
-<!------------------- posts feed ------------------->
-                <div class="feed-posts profile-posts">
-                </div>
-            </section>
         </main>
-<!------------------- Footer ------------------->
-        <footer class="hidden-large">
-            <p>© 2025 Vibely</p>
-        </footer>
-    </div>
-</body>
-</html>
