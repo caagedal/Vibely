@@ -2,6 +2,10 @@
 
 My entry to javascript 2 project. A social media platform.
 
+Live preview:
+
+https://leafy-chimera-381d88.netlify.app/
+
 ### Installing
 
 1. clone the repo:
