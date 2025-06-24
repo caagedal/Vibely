@@ -5,16 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/dist/css/index.css">
     <script src="https://kit.fontawesome.com/4639419757.js" crossorigin="anonymous"></script>
-    <title>Vibely | Login</title>
+    <title>Vibely | Feed</title>
+    <script type="module" src="/src/javaScript/pages/feed.mjs"></script>
+    
+
 </head>
 <body class="main-style">
     <div class="main-container">
 <!------------------- Sidebar ------------------->
         <div class="sidebar">
             <div class="hidden-small mini-profile-box small-container">
-                <a href="/profile/index.html">
+                <a href="/profile/">
                     <h2>Vibely</h2>
                     <div class="mini-profile">
+                        <!-- <img src="/src/media/placeholder-img.webp"> -->
                     </div>
                 </a>
             </div>
@@ -23,16 +27,16 @@
                     <div class="menu">
                         <a href="/feed/index.html" class="active menu-item">
                             <i class="fa-solid fa-house"></i> <span class="hidden-small">Home</span></a>
-                        <a href="/profile/index.html" class="menu-item">
+                        <a href="/profile/" class="menu-item" id="menuProfile">
                             <i class="fa-solid fa-user"></i> <span class="hidden-small">Profile</span></a>
-                        <a href="#" class="menu-item">
-                            <i class="fa-solid fa-bell"></i> <span class="hidden-small">Notifications</span></a>
-                        <a href="#" class="menu-item">
-                            <i class="fa-solid fa-comment"></i> <span class="hidden-small">Messages</span></a>
+                        <!-- <a href="#" class="menu-item">
+                            <i class="fa-solid fa-bell"></i> <span class="hidden-small">Notifications</span></a> -->
+                        <a href="#" class="menu-item sign-out" id="signout-btn">
+                            <i class="fa-solid fa-right-from-bracket"></i> <span class="hidden-small">Sign out</span></a>
                     </div>
                 </div>
                 <div class="footer hidden-small">
-                    <p>© 2024 Vibely</p>                
+                    <p>© 2025 Vibely</p>                
                 </div>
             </nav>
         </div>
@@ -43,36 +47,43 @@
             </div>
 <!------------------- personal post ------------------->
             <section class="profile-content  wrapper">
-                <div class="container post-box">                    
-                    <div class="feed-post personal-post">
-                        <img class="posting-img" src="#">
-                        <form class="post-text">
+                <div class="container post-box feed-post personal-post">
+                    <div class="post-top">
+                        <!-- <img class="posting-img" src="/src/media/placeholder-img.webp"> -->
+                        <div class="personal-post-img">
+
+                        </div>                        
+                        <form class="post-text create-post">
                             <div>
-                                <input class="post-title" type="text" placeholder="What's up today?"> 
+                                <input class="post-title" id="title" name="title" type="text" placeholder="What's up today?"> 
                             </div>
                             <div>
-                                <textarea class="post-input-text" name="post-write" placeholder="What's up today?" maxlength="300"></textarea>
+                                <textarea class="post-input-text" name="body" id="body" placeholder="What's up today?" maxlength="300"></textarea>
                             </div>
-                            <div class="img-url post-button">
-                                <input class="image-url" type="text" placeholder="Media URL">
-                                <button type="submit">Post</button>
-                            </div>
-                        </form>   
                     </div>
+                        <div class="img-url post-button">
+                            <input class="img-tag" type="url" name="media" id="media" placeholder="Media URL">
+                            <!-- <input class="img-tag" type="text" name="tags" id="tags" placeholder="Add tags!"> -->
+                            <button type="submit">Post</button>
+                        </div>
+                    </form>                    
                 </div>
             </section>
 <!------------------- profile feed ------------------->
             <section class="content-feed">
                 <div class="sort-search">
                     <div class="search-container">
-                        <form>
+                        <form class="search-container" id="search-form">
                             <input name="searchbar" id="searchbar" class="searc-field" type="text" placeholder="Search" aria-label="Searchbar">
                             <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></button>
                         </form>
                     </div>
                     <div class="feed-nav" id="profile-feed-nav">
-                        <div class="filter-btn">
-                            <button><i class="fa-solid fa-filter"></i></button>
+                        <div class="filter-btn">                            
+                            <select name="filter" id="filter">
+                                <option class="option" value="all" id="allPosts">All posts</option>
+                                <option class="option" value="media" id="mediaOnly">With media only</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -83,7 +94,7 @@
         </main>
         <!------------------- Footer ------------------->
         <footer class="hidden-large">
-            <p>© 2024 Vibely</p>
+            <p>© 2025 Vibely</p>
         </footer>
     </div>
 </body>

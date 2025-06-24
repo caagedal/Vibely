@@ -6,38 +6,40 @@
     <script src="https://kit.fontawesome.com/4639419757.js" crossorigin="anonymous"></script>
      <title>Vibely | Register</title> 
     <link rel="stylesheet" href="/dist/css/index.css">
+    <script type="module" src="/src/javaScript/handlers/register.mjs"></script>
   </head>
   <body class="login-main">
     <div class="wrapper login reg">
         <div class="container login-box">
             <div class="logo"><h1>Vibely</h1></div>
             <h2>Register new account</h2>
-            <form action="/index.html">
+            <form class="register-form">
                 <div class="row">
                     <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Username" required maxlength="16">
+                    <input type="text" name="name" placeholder="Username" required maxlength="16">
                 </div>
                 <div class="row">
                     <i class="fas fa-at"></i>
-                    <input type="text" placeholder="Email" required>
+                    <input type="email" name="email" placeholder="Email" required>
                 </div>
                 <div class="row">
                     <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password" required minlength="8">
+                    <input type="password" name="password" placeholder="Password" required minlength="8">
                 </div>
                 <div class="row">
                     <i class="fa-solid fa-image"></i>
-                    <input type="text" placeholder="Avatar URL here">
+                    <input type="text" name="avatar" placeholder="Avatar URL here">
                 </div>
                 <div class="row">
                     <i class="fa-solid fa-image"></i>
-                    <input type="text" placeholder="Banner URL here">
+                    <input type="text" name="banner" placeholder="Banner URL here">
                 </div>
                 <p>You have to log in after registering a new account.</p>
                 <div class="row button">
                     <input type="submit" value="Register" class="login-btn">
                 </div>
             </form>
+
             <a href="/index.html"><i class="fas fa-undo-alt"></i> Return to login</a>
         </div>
     </div>
